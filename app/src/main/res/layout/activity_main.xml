@@ -6,4 +6,67 @@
 	android:layout_height="match_parent"
 	tools:context=".presentation.chat.ChatActivity">
 
+	<FrameLayout
+		android:id="@+id/background_frame"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:background="@drawable/background"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<androidx.recyclerview.widget.RecyclerView
+		android:id="@+id/recycler_view"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:paddingStart="48dp"
+		android:paddingTop="16dp"
+		android:paddingEnd="16dp"
+		android:paddingBottom="16dp"
+		app:layout_constraintBottom_toTopOf="@+id/bottom_panel"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<LinearLayout
+		android:id="@+id/bottom_panel"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:background="@color/white"
+		android:gravity="center_vertical"
+		android:orientation="horizontal"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent">
+
+		<com.google.android.material.textfield.TextInputLayout
+			android:id="@+id/text_field"
+			style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:hint="@string/input_message"
+			android:paddingStart="16dp"
+			android:paddingTop="16dp"
+			android:paddingEnd="4dp"
+			android:paddingBottom="16dp">
+
+			<com.google.android.material.textfield.TextInputEditText
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content" />
+		</com.google.android.material.textfield.TextInputLayout>
+
+		<ImageButton
+			android:id="@+id/send_button"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="8dp"
+			android:layout_weight="0"
+			android:background="@drawable/round_background"
+			android:contentDescription="@string/input_message_button_description"
+			android:padding="8dp"
+			android:src="@drawable/baseline_arrow_upward_24" />
+	</LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
