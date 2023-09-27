@@ -1,0 +1,5 @@
+<resources>
+	<string name="app_name">Chat Emulator</string>
+	<string name="input_message">Введите сообщение</string>
+	<string name="input_message_button_description">Отправить сообщение</string>
+</resources>
