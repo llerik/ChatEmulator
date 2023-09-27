@@ -17,6 +17,16 @@ android {
 		testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 	}
 
+	testOptions {
+		unitTests {
+			all {
+				it.useJUnitPlatform()
+			}
+			isReturnDefaultValues = true
+			isIncludeAndroidResources = true
+		}
+	}
+
 	buildTypes {
 		release {
 			isMinifyEnabled = false
@@ -36,7 +46,9 @@ android {
 }
 
 dependencies {
+
 	val daggerVersion = "2.47"
+	val mockkVersion = "1.13.5"
 
 	implementation("androidx.core:core-ktx:1.12.0")
 	implementation("androidx.appcompat:appcompat:1.6.1")
@@ -50,7 +62,11 @@ dependencies {
 	implementation("com.google.dagger:dagger:$daggerVersion")
 	annotationProcessor("com.google.dagger:dagger-compiler:$daggerVersion")
 
+	testImplementation("com.google.truth:truth:1.1.3")
 	testImplementation("junit:junit:4.13.2")
+	testImplementation("org.junit.jupiter:junit-jupiter:5.9.3")
+	testImplementation("io.mockk:mockk:$mockkVersion")
+	testImplementation("io.mockk:mockk-android:$mockkVersion")
 	androidTestImplementation("androidx.test.ext:junit:1.1.5")
 	androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 }
