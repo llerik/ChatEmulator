@@ -22,10 +22,10 @@ import org.junit.jupiter.api.extension.ExtendWith
 @OptIn(ExperimentalCoroutinesApi::class)
 @ExtendWith(MockKExtension::class)
 internal class MessagesRepositoryImplTest {
-	private val dispatcher: TestDispatcher = StandardTestDispatcher()
-
 	@MockK(relaxUnitFun = true)
 	private lateinit var store: MessagesStore
+	@MockK
+	private lateinit var message: MessageModel
 	private lateinit var repository: MessagesRepository
 
 	private lateinit var subscriber: (List<MessageModel>) -> Unit
@@ -41,16 +41,14 @@ internal class MessagesRepositoryImplTest {
 	}
 
 	@Test
-	fun getMessages() = runTest(dispatcher) {
+	fun getMessages() = runTest {
 		var result: List<MessageModel>? = null
 		launch {
 			result = repository.getMessages().first()
 		}
 		advanceUntilIdle() //init subscriber
 
-		val messages = listOf(
-			MessageModel(0, "test", false)
-		)
+		val messages = listOf(message)
 		subscriber.invoke(messages)
 		advanceUntilIdle() //collect messages
 
@@ -70,7 +68,6 @@ internal class MessagesRepositoryImplTest {
 
 	@Test
 	fun lastMessage() {
-		val message = MessageModel(1, "Test", false)
 		every { store.getLastMessage() } returns message
 
 		assertThat(repository.getLastMessage())
@@ -79,7 +76,6 @@ internal class MessagesRepositoryImplTest {
 
 	@Test
 	fun updateMessage() {
-		val message = MessageModel(1, "Test", false)
 		repository.updateMessage(message)
 
 		verify { store.updateMessage(message) }
