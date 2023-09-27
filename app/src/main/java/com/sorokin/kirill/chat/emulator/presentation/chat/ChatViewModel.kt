@@ -43,7 +43,6 @@ class ChatViewModel(
 		viewModelScope.launch {
 			chatInteractor.loadMessages()
 				.collect {
-					Log.d(TAG, "subscribe: collect: $it")
 					messagesLiveData.value = it
 				}
 		}
