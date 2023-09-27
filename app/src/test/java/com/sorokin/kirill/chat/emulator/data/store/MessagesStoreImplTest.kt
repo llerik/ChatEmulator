@@ -55,8 +55,8 @@ internal class MessagesStoreImplTest {
 		verify {
 			subscriber.invoke(
 				listOf(
-					MessageModel(0, "test", false),
-					MessageModel(1, "test1", false)
+					MessageModel(1, "test1", false),
+					MessageModel(0, "test", false)
 				)
 			)
 		}
@@ -65,8 +65,8 @@ internal class MessagesStoreImplTest {
 		verify {
 			subscriber.invoke(
 				listOf(
-					MessageModel(0, "test", true),
-					MessageModel(1, "test1", false)
+					MessageModel(1, "test1", false),
+					MessageModel(0, "test", true)
 				)
 			)
 		}

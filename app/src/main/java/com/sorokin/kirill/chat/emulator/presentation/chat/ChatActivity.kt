@@ -10,6 +10,7 @@ import androidx.core.content.getSystemService
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.AdapterDataObserver
 import com.google.android.material.textfield.TextInputLayout
 import com.sorokin.kirill.chat.emulator.R
 import com.sorokin.kirill.chat.emulator.R.layout
@@ -28,10 +29,19 @@ class ChatActivity : AppCompatActivity() {
 
 		findViewById<RecyclerView>(R.id.recycler_view).apply {
 			adapter = messagesAdapter
-			layoutManager = LinearLayoutManager(this.context).apply {
-				stackFromEnd = true
-				reverseLayout = false
+			val linearLayoutManager = LinearLayoutManager(this.context).apply {
+				stackFromEnd = false
+				reverseLayout = true
 			}
+			layoutManager = linearLayoutManager
+			messagesAdapter.registerAdapterDataObserver(object : AdapterDataObserver() {
+				override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+					val firstPosition = linearLayoutManager.findFirstVisibleItemPosition()
+					if (positionStart == 0 && firstPosition == 0) {
+						linearLayoutManager.scrollToPositionWithOffset(positionStart, 0)
+					}
+				}
+			})
 		}
 		textInputField = findViewById(R.id.text_field)
 
@@ -75,7 +85,6 @@ class ChatActivity : AppCompatActivity() {
 	}
 
 	private fun updateMessages(messages: List<MessageModel>) {
-		Log.d(TAG, "updateMessages: $messages")
 		messagesAdapter.submitList(messages)
 	}
 

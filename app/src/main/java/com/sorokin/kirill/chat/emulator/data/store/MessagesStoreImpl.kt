@@ -44,7 +44,7 @@ class MessagesStoreImpl : MessagesStore {
 		subscriberLink?.let { callback ->
 			Log.d(TAG, "notifyUpdate: invoke")
 			synchronized(messages) {
-				messages.toList()
+				messages.toList().reversed()
 			}.let { copy ->
 				callback.invoke(copy)
 			}
